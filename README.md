@@ -76,3 +76,74 @@ Currently supported Data Types
     | `ObservableCollection`    | `ARRAY`       | Dynamic arrays with type tracking |
     | `T[]`                     | `ARRAY`       | Fixed-size arrays                 |
     |---------------------------|---------------|-----------------------------------|
+
+Quick Start Step 1: Create two structures in your PLC project containing the data to be read and written (you can choose any name you like)
+    
+    TYPE _DATA_FROM_PLC_TO_HMI :
+    STRUCT
+	    ExampleVariable		: BOOL;
+    END_STRUCT
+    END_TYPE
+
+    TYPE _DATA_FROM_HMI_TO_PLC :
+    STRUCT
+	    ExampleVariable		: BOOL;
+    END_STRUCT
+    END_TYPE
+
+Quick Start Step 2: Create the structures as variables (you can choose any name you like)
+
+    VAR_GLOBAL
+	    DATA_FROM_HMI_TO_PLC	: _DATA_FROM_HMI_TO_PLC;
+	    DATA_FROM_PLC_TO_HMI	: _DATA_FROM_PLC_TO_HMI;
+    END_VAR
+
+Quick Start Step 3: In Visual Studio, install NuGet Packages
+
+    dotnet add package Beckhoff.TwinCAT.Ads
+    dotnet add package CommunityToolkit.Mvvm
+
+Quick Start Step 4: Add this library to your project
+
+    git clone https://github.com/SimpleSharp/AdsWrapper.git
+    cd AdsWrapper
+    dotnet build -c Release
+    Rightclick on your solution -> Add -> Existing Project -> Browse -> AdsWrapper\AdsWrapper.csproj
+
+
+Quick Start Step 5: Create two classes that are identical in content to the structures in the PLC (you can choose any name for the classes and properties)
+                    Using ObservableProperty or INotif
+
+    public partial class DataFromPlc : ObservableObject
+    {
+        [ObservableProperty] private bool lifebit;
+
+    }
+    public partial class DataToPlc : ObservableObject
+    {
+        [ObservableProperty] private bool lifebit;
+
+    }
+
+Quick Start Step 6: Create the ads the wrapper the data objects and define the names of the structure variables in the PLC
+
+       
+    private readonly DataToClient dataToPlc = new();
+    private readonly DataFromClient dataFromPlc = new();
+    private readonly string structNameDataFromClient = "GVL.DATA_FROM_PLC_TO_HMI";
+    private readonly string structNameDataToClient = "GVL.DATA_FROM_HMI_TO_PLC";
+
+Quick Start Step 7: Create the AdsSyncClient and start it
+
+        adsSyncClient = new AdsSyncClient(new AdsClient(), AmsNetId.Parse("127.0.0.1.1.1"), dataToPlc, dataFromPlc, structNameDataToClient, structNameDataFromClient);
+        Task task = adsSyncClient.ActivateSync();
+        try
+        {
+            await task;
+        }
+        catch (Exception ex)
+        {
+            //Insert exception handling
+        }
+
+If “adsSyncClient.StateSoftware” = “Run,” data exchange is active. All data is now automatically read and written.
