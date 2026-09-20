@@ -1,6 +1,6 @@
 # AdsWrapper
 
-AdsWrapper is a C# library that simplifies communication with Beckhoff TwinCAT PLCs via ADS. It eliminates boilerplatecode by enabling automatic data synchronization between .NET objects and ADS structures. All you need to do is establish a connection; the wrapper handles the actual data exchange.
+AdsWrapper is a C# library that simplifies communication with Beckhoff TwinCAT PLCs via ADS. It eliminates boilerplatecode by enabling automatic data synchronization between .NET objects and ADS structures. All you need to do is establish a connection; the wrapper handles the actual data exchange. It is optimized for performance by sending and reading only data whose values have changed. 
 
 “AdsWrapper” contains the actual library project with all the classes that enable simplified communication. “AdsWrapperDemo” is a WPF project that demonstrates an example implementation of communication in the MainWindow's code-behind. "AdsWrapperPlcDemo.zip" is the plc project and counterpart to "AdsWrapperDemo".
 
