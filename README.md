@@ -60,18 +60,19 @@ Currently supported Data Types
 
     The `Marshalling.PropertyClassToMarshalledFieldClass` method automatically converts your .NET properties to ADS-compatible field structures at runtime using `System.Reflection.Emit`.
 
-    | .NET Type | ADS/UnmanagedType | Notes |
-    |-----------|-------------------|-------|
-    | `bool` | `UNINT (U1)` | 1 byte |
-    | `byte` | `UNSINT (U1)` | 1 byte |
-    | `short` | `INT (I2)` | 2 bytes, signed |
-    | `int` | `DINT (I4)` | 4 bytes, signed |
-    | `long` | `LINT (I8)` | 8 bytes, signed |
-    | `ushort` | `USINT (U2)` | 2 bytes, unsigned |
-    | `uint` | `UDINT (U4)` | 4 bytes, unsigned |
-    | `ulong` | `ULINT (U8)` | 8 bytes, unsigned |
-    | `float` | `REAL (R4)` | 4 bytes, IEEE 754 |
-    | `double` | `LREAL (R8)` | 8 bytes, IEEE 754 |
-    | `string[80]` | `STRING[81]` | 80 chars + null terminator |
-    | `ObservableCollection<T>[]` | `ARRAY` | Dynamic arrays with type tracking |
-    | `T[]` | `ARRAY` | Fixed-size arrays |
+    | .NET Type                 | ADS type      | Notes                             |
+    |---------------------------|---------------|-----------------------------------|
+    | `bool`                    | `UNINT (U1)`  | 1 byte                            |
+    | `byte`                    | `UNSINT (U1)` | 1 byte                            |
+    | `short`                   | `INT (I2)`    | 2 bytes, signed                   |
+    | `int`                     | `DINT (I4)`   | 4 bytes, signed                   |
+    | `long`                    | `LINT (I8)`   | 8 bytes, signed                   |
+    | `ushort`                  | `USINT (U2)`  | 2 bytes, unsigned                 |
+    | `uint`                    | `UDINT (U4)`  | 4 bytes, unsigned                 |
+    | `ulong`                   | `ULINT (U8)`  | 8 bytes, unsigned                 |
+    | `float`                   | `REAL (R4)`   | 4 bytes, IEEE 754                 |
+    | `double`                  | `LREAL (R8)`  | 8 bytes, IEEE 754                 |
+    | `string[80]`              | `STRING[81]`  | 80 chars + null terminator        |
+    | `ObservableCollection`    | `ARRAY`       | Dynamic arrays with type tracking |
+    | `T[]`                     | `ARRAY`       | Fixed-size arrays                 |
+    |---------------------------|---------------|-----------------------------------|
