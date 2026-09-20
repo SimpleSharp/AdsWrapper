@@ -4,7 +4,7 @@ AdsWrapper is a C# library that simplifies communication with Beckhoff TwinCAT P
 
 “AdsWrapper” contains the actual library project with all the classes that enable simplified communication. “AdsWrapperDemo” is a WPF project that demonstrates an example implementation of communication in the MainWindow's code-behind. "AdsWrapperPlcDemo.zip" is the plc project and counterpart to "AdsWrapperDemo".
 
-The entire code is annotated with XML comments to make everything as clear as possible. Below is a quick-start guide that explains how to implement it in your application.
+The entire code is annotated with XML comments to make everything as clear as possible. Below is a quick-start guide that explains how to implement this library in your application.
 
 
 Key capabilities:
@@ -76,7 +76,7 @@ Currently supported Data Types
     | `T[]`                     | `ARRAY`       | Fixed-size arrays                 |
     |---------------------------|---------------|-----------------------------------|
 
-Quick Start Step 1 - Create two structures in your PLC project containing the data to be read and written (you can choose any name you like)
+Quick Start Step 1 - Create two structures in your PLC project containing the data to be read and written (you can choose any name you like):
     
     TYPE _DATA_FROM_PLC_TO_HMI :
     STRUCT
@@ -111,7 +111,7 @@ Quick Start Step 4 - Add this library to your project:
 
 
 Quick Start Step 5 - Create two classes that are identical in content to the structures in the PLC (you can choose any name for the classes and properties).
-                     Using ObservableProperty or INotifyPropertyChanged is necessary, othwerwise you will get exceptions when creating the AdsWrapper.
+                     Using ObservableProperty or INotifyPropertyChanged is necessary, otherwise you will get exceptions when creating the AdsWrapper.
 
     public partial class DataFromPlc : ObservableObject
     {
