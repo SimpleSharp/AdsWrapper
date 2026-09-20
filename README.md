@@ -1,6 +1,9 @@
 # AdsWrapper
 
-AdsWrapper is a C# library that simplifies communication with Beckhoff TwinCAT PLCs via ADS. It eliminates boilerplate code by providing automatic data synchronization between .NET objects and ADS structures.
+AdsWrapper is a C# library that simplifies communication with Beckhoff TwinCAT PLCs via ADS. It eliminates boilerplatecode by enabling automatic data synchronization between .NET objects and ADS structures. All you need to do is establish a connection; the wrapper handles the actual data exchange.
+
+The entire code is annotated with XML comments to make everything as clear as possible. Below is a quick-start guide that explains how to implement it in your application.
+
 
 Key capabilities:
 
@@ -25,12 +28,6 @@ Requirements
     Beckhoff TwinCAT 3 Runtime (tested with version 4024.78)
     Beckhoff.TwinCAT.Ads NuGet package
     CommunityToolkit.Mvvm NuGet package
-
-From Source
-
-    git clone https://github.com/SimpleSharp/AdsWrapper.git
-    cd AdsWrapper
-    dotnet build
 
 Architecture Overview
 
@@ -72,12 +69,12 @@ Currently supported Data Types
     | `ulong`                   | `ULINT (U8)`  | 8 bytes, unsigned                 |
     | `float`                   | `REAL (R4)`   | 4 bytes, IEEE 754                 |
     | `double`                  | `LREAL (R8)`  | 8 bytes, IEEE 754                 |
-    | `string[80]`              | `STRING[81]`  | 80 chars + null terminator        |
+    | `string`                  | `STRING[80]`  | 80 chars + null terminator        |
     | `ObservableCollection`    | `ARRAY`       | Dynamic arrays with type tracking |
     | `T[]`                     | `ARRAY`       | Fixed-size arrays                 |
     |---------------------------|---------------|-----------------------------------|
 
-Quick Start Step 1: Create two structures in your PLC project containing the data to be read and written (you can choose any name you like)
+Quick Start Step 1 - Create two structures in your PLC project containing the data to be read and written (you can choose any name you like)
     
     TYPE _DATA_FROM_PLC_TO_HMI :
     STRUCT
@@ -91,19 +88,19 @@ Quick Start Step 1: Create two structures in your PLC project containing the dat
     END_STRUCT
     END_TYPE
 
-Quick Start Step 2: Create the structures as variables (you can choose any name you like)
+Quick Start Step 2 - Create the structures as variables (you can choose any name you like):
 
     VAR_GLOBAL
 	    DATA_FROM_HMI_TO_PLC	: _DATA_FROM_HMI_TO_PLC;
 	    DATA_FROM_PLC_TO_HMI	: _DATA_FROM_PLC_TO_HMI;
     END_VAR
 
-Quick Start Step 3: In Visual Studio, install NuGet Packages
+Quick Start Step 3 - In Visual Studio, install NuGet Packages:
 
     dotnet add package Beckhoff.TwinCAT.Ads
     dotnet add package CommunityToolkit.Mvvm
-
-Quick Start Step 4: Add this library to your project
+    
+Quick Start Step 4 - Add this library to your project:
 
     git clone https://github.com/SimpleSharp/AdsWrapper.git
     cd AdsWrapper
@@ -111,8 +108,8 @@ Quick Start Step 4: Add this library to your project
     Rightclick on your solution -> Add -> Existing Project -> Browse -> AdsWrapper\AdsWrapper.csproj
 
 
-Quick Start Step 5: Create two classes that are identical in content to the structures in the PLC (you can choose any name for the classes and properties)
-                    Using ObservableProperty or INotif
+Quick Start Step 5 - Create two classes that are identical in content to the structures in the PLC (you can choose any name for the classes and properties).
+                     Using ObservableProperty or INotifyPropertyChanged is necessary, othwerwise you will get exceptions when creating the AdsWrapper.
 
     public partial class DataFromPlc : ObservableObject
     {
@@ -125,7 +122,7 @@ Quick Start Step 5: Create two classes that are identical in content to the stru
 
     }
 
-Quick Start Step 6: Create the ads the wrapper the data objects and define the names of the structure variables in the PLC
+Quick Start Step 6 - Create the ads the wrapper the data objects and define the names of the structure variables in the PLC:
 
        
     private readonly DataToClient dataToPlc = new();
@@ -133,7 +130,7 @@ Quick Start Step 6: Create the ads the wrapper the data objects and define the n
     private readonly string structNameDataFromClient = "GVL.DATA_FROM_PLC_TO_HMI";
     private readonly string structNameDataToClient = "GVL.DATA_FROM_HMI_TO_PLC";
 
-Quick Start Step 7: Create the AdsSyncClient and start it
+Quick Start Step 7 - Create the AdsSyncClient and start it:
 
         adsSyncClient = new AdsSyncClient(new AdsClient(), AmsNetId.Parse("127.0.0.1.1.1"), dataToPlc, dataFromPlc, structNameDataToClient, structNameDataFromClient);
         Task task = adsSyncClient.ActivateSync();
