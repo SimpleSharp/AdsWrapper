@@ -2,6 +2,8 @@
 
 AdsWrapper is a C# library that simplifies communication with Beckhoff TwinCAT PLCs via ADS. It eliminates boilerplatecode by enabling automatic data synchronization between .NET objects and ADS structures. All you need to do is establish a connection; the wrapper handles the actual data exchange.
 
+“AdsWrapper” contains the actual library project with all the classes that enable simplified communication. “AdsWrapperDemo” is a WPF project that demonstrates an example implementation of communication in the MainWindow's code-behind. 
+
 The entire code is annotated with XML comments to make everything as clear as possible. Below is a quick-start guide that explains how to implement it in your application.
 
 
@@ -132,15 +134,15 @@ Quick Start Step 6 - Create the ads the wrapper the data objects and define the 
 
 Quick Start Step 7 - Create the AdsSyncClient and start it:
 
-        adsSyncClient = new AdsSyncClient(new AdsClient(), AmsNetId.Parse("127.0.0.1.1.1"), dataToPlc, dataFromPlc, structNameDataToClient, structNameDataFromClient);
-        Task task = adsSyncClient.ActivateSync();
-        try
-        {
-            await task;
-        }
-        catch (Exception ex)
-        {
-            //Insert exception handling
-        }
+    adsSyncClient = new AdsSyncClient(new AdsClient(), AmsNetId.Parse("127.0.0.1.1.1"), dataToPlc, dataFromPlc, structNameDataToClient, structNameDataFromClient);
+    Task task = adsSyncClient.ActivateSync();
+    try
+    {
+        await task;
+    }
+    catch (Exception ex)
+    {
+        //Insert exception handling
+    }
 
 If “adsSyncClient.StateSoftware” = “Run,” data exchange is active. All data is now automatically read and written.

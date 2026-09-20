@@ -8,6 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdsWrapper", "AdsWrapper\Ad
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8E34BD8E-3950-4B37-A181-706BF470B0F2}"
 	ProjectSection(SolutionItems) = preProject
+		AdsWrapperPlcDemo.zip = AdsWrapperPlcDemo.zip
 		README.md = README.md
 	EndProjectSection
 EndProject
